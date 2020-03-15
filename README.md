@@ -1,14 +1,12 @@
-This code is **old and no longer works** for Sage v9 and later. Check out [Toby's blog post](https://tobyschrapel.com/deploying-sage-9-blade-templates-to-wp-engine-using-gitlab-ci-pipelines/) for a solution.
-
----
-
 # Deploy Roots Bedrock WordPress project to WP Engine hosting platform
 
-Works up to Bedrock 1.7.2. Deploys themes, plugins, and mu-plugins.
+Works up to Bedrock 1.13.1. Deploys themes, plugins, and mu-plugins.
 
 Repo: [https://github.com/hello-jason/bedrock-deploy-to-wpengine](https://github.com/hello-jason/bedrock-deploy-to-wpengine)
 
 ## Changelog
+
+v2.2.1 - Handles (ignores) Bedrock-installed mu-plugins.
 
 v2 - Removes build process for Sage theme. Now focuses purely on deploying your Bedrock project, regardless of theme. Grab the branch `master`.
 
