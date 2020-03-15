@@ -75,7 +75,7 @@ function deploy () {
   # Setup directory structure
   mkdir wp-content && mkdir wp-content/themes && mkdir wp-content/plugins && mkdir wp-content/mu-plugins
   # Copy meaningful contents of web/app into wp-content
-  cp -rp web/app/plugins wp-content && cp -rp web/app/themes wp-content && cp -rp web/app/mu-plugins wp-content
+  cp -rp web/app/plugins wp-content && cp -rp web/app/themes wp-content && rsync -avq --exclude="bedrock-autoloader.php" --exclude="disallow-indexing.php" --exclude="register-theme-directory.php" web/app/mu-plugins/ wp-content/mu-plugins
 
   ########################################
   # Push to WP Engine
