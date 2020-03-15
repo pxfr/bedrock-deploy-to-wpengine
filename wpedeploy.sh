@@ -31,6 +31,12 @@ wpengineRemoteName=$1
 currentLocalGitBranch=`git rev-parse --abbrev-ref HEAD`
 # Temporary git branch for building and deploying
 tempDeployGitBranch="wpedeployscript/${currentLocalGitBranch}"
+# Set message colours
+red="\033[0;31m"
+cyan="\033[0;36m"
+green="\033[0;32m"
+noColour="\033[0m"
+
 
 ########################################
 # Perform checks before running script
@@ -39,7 +45,7 @@ tempDeployGitBranch="wpedeployscript/${currentLocalGitBranch}"
 # Halt if there are uncommitted files
 function check_uncommited_files () {
   if [[ -n $(git status -s) ]]; then
-    echo -e "[\033[31mERROR\e[0m] Found uncommitted files on current branch \"$currentLocalGitBranch\".\n        Review and commit changes to continue."
+    echo -e "[${red}ERROR${noColour}]${red} Found uncommitted files on current branch \"$currentLocalGitBranch\".\nReview and commit changes to continue."
     git status
     exit 1
   fi
@@ -50,7 +56,7 @@ function check_remote_exists () {
   echo "Checking if specified remote exists..."
   git ls-remote "$wpengineRemoteName" &> /dev/null
   if [ "$?" -ne 0 ]; then
-    echo -e "[\033[31mERROR\e[0m] Unknown git remote \"$wpengineRemoteName\"\n        Visit \033[32mhttps://wpengine.com/git/\e[0m to set this up."
+    echo -e "[${red}ERROR${noColour}]${red} Unknown git remote \"$wpengineRemoteName\"\nVisit ${cyan}https://wpengine.com/git/${red} to set this up."
     echo "Available remotes:"
     git remote -v
     exit 1
@@ -101,7 +107,7 @@ function deploy () {
   git checkout "$currentLocalGitBranch" &> /dev/null
   rm -rf wp-content/ &> /dev/null
   git branch -D "$tempDeployGitBranch" &> /dev/null
-  echo -e "[\033[32mDone\e[0m] Deployed \"$tempDeployGitBranch\" to \"$wpengineRemoteName\""
+  echo -e "[${green}DONE${noColour}]${green} Deployed \"$tempDeployGitBranch\" to \"$wpengineRemoteName\""
 }
 
 ########################################
